@@ -6,3 +6,64 @@
 
 @import 'prism/themes/prism-okaidia.css'
 // Check out "bower_components/prism/themes/" for available themes
+
+// BASIC COLORS
+$black= #1a1a1a
+$white= #ffffff
+$grey= #616a73
+$subtitle= #79838e
+$light-grey= #a7aeb5
+$blue= #2aaae1
+$error= #ed5937
+
+body {
+  font-size: 22px
+  color: $grey
+}
+
+h1 {
+  font-size: 50px;
+  line-height: 60px;
+  color: $black;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+  color: $black;
+}
+
+h3 {
+  color: $light-grey
+}
+
+.bespoke-parent {
+  background: $grey;
+}
+
+.bespoke-slide {
+  background: $white;
+
+  img {
+    position:relative;
+    width: 100%;
+  }
+}
+
+.css-fuckup {
+  .css-include {
+    width 335px
+    height 84px
+  }
+  .css-overwrite {
+    width 432px
+    height auto
+  }
+}
+
+code {
+  font-size 16px
+}
+
+code[class*="language-"], pre[class*="language-"] {
+  line-height 26px
+}

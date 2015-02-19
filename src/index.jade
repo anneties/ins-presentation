@@ -13,59 +13,135 @@ html
 
       section
         h1 How we use modular Sass at inSided
+        p <br>
+        p Anne Ties van Vliet 
+        p @anneties
 
       section
-        h2 Keyboard Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
+        h2 inSided 
+        h3 Create custom communities and <br> consultancy for corporate companies. 
+        img(src='/images/insided-clients.png')
 
       section
-        h2 Touch Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
+        img(src='/images/t-mobile.png')
 
       section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+        img(src='/images/reaal.png')
 
       section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
+        img(src='/images/ns.png')
+
+      section
+        img(src='/images/default.png') 
+
+      section(class='css-fuckup')
+        img(src='/images/css-include.png' class='css-include')
+        img(src='/images/css-overwrite.png' class='css-overwrite')
+
+      section
+        img(src='/images/jackie-chan.jpeg' class='jackie-chan')
+
+      section
+        h1 Time to refactor
         ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
+          li BEM methodology 
+          li Rewrite templates in modules
+          li Sass adjusted to modules
+          li Keep Sass in one central place
+          li Render automated style guides per customer
+          li Oh let's throw in an javascript refactor while we are at it
 
       section
-        h2 Syntax Highlighting
-        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+        h2 Render Sass from one central spot
+        ul
+          li All Sass files will be available in the core folder
+          li New functionalities will automatically be styled
+          li The Sass files will be split up in modules
+          li Feed variables to core files from your theme Sass file, get rendered css back into your theme
+          li Customize Sass modules by copying them into your theme
+
+      section
         pre
           code.language-javascript.
-            bespoke.from('article', [
-              classes(),
-              keys(),
-              touch(),
-              bullets('li, .bullet')
-            ]);
-
-      section(data-bespoke-hash='named-route')
-        h2 Named Route
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
-
-      section.emphatic-text(data-bespoke-backdrop='emphatic')
-        h2 Emphatic Slide!
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
+            -Themes
+             |-Client-name
+               |-Sass
+                 |settings.scss            
+                  output.scss
+            -Core
+             |-Assets
+               |-Sass
+                 |-apps
+                  -global
+                  -helpers
+                  -modules
+                  -patterns
 
       section
-        h2.bullet Just the beginning...
-        br
-        ul
-          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-          li Edit JavaScript in <em>'src/scripts/main.js'</em>
-        br
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+        h2 Compiling file
+        pre
+          code.language-css.
+            //imports THIS THEME's settings file.
+            @import '_settings.scss';
+
+            //imports the CORE of Barebones. 
+            //importing this fill will give you 
+            //ALL Insided's SASS-functionality 
+            //without outputting any CSS.
+            @import '@core-path/utilities/sass/_core-importer.scss';
+
+            //imports all SASS files that will actually output CSS, 
+            //based on the CORE functionality imported above.
+            @import '_outputs.scss';
+
+      section
+        h2 _settings.scss
+        pre
+          code.language-css.
+            // Which apps does the client use?
+            $apps : ('forum');
+
+            // brand color(s)
+            $color-brand                    : #006;
+            $color-contrast                 : #fc3;
+
+            $site-width                     : 980px;
+            $maincol-width                  : 100%;
+            $sidebar-width                  : 240px;
+            $gutter                         : 10px;
+
+      section
+        h2 _core-importer.scss
+        pre
+          code.language-css.
+            @import 'global/grid';
+            @import 'global/typography/fonts';
+            @import 'global/typography/type_base';
+            @import 'global/typography/headers';
+
+            @import 'patterns/specific/spinner/spinner_base';
+            @import 'patterns/specific/seperator/seperator_base';
+            @import 'patterns/specific/tooltip/tooltip_base';
+            @import 'patterns/patterns';
+
+      section
+        h2 output.scss
+        pre
+          code.language-css.
+            @import '../vendors/barebone-sass/patterns/specific/spinner/spinner_output';
+            @import '../vendors/barebone-sass/patterns/generic/links/links_output';
+            @import '../vendors/barebone-sass/patterns/generic/forms/form-textual_output';
+            @import '../vendors/barebone-sass/patterns/generic/forms/form-labels_output';
+            @import '../vendors/barebone-sass/patterns/generic/forms/forms_output';
+            @import '../vendors/barebone-sass/patterns/specific/avatar/avatar_output';
+            @import '../vendors/barebone-sass/patterns/abstract/groups/flag_output';
+            
+            @import 'additions';
+
+      section(data-bespoke-hash='named-route')
+        img(src='http://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif')
+
+      section
+        img(src='http://s3.amazonaws.com/f.cl.ly/items/1M0k0u0I3U0e2g2t3d0T/Screen%20Recording%202015-02-08%20at%2008.24%20pm.gif')
 
     script(src='build/build.js')
