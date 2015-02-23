@@ -10,34 +10,37 @@
 // BASIC COLORS
 $black= #1a1a1a
 $white= #ffffff
-$grey= #616a73
+$grey= #79838e
 $subtitle= #79838e
-$light-grey= #a7aeb5
-$blue= #2aaae1
+$blue= #f2fafd
+$dark = #061e29;
 $error= #ed5937
 
 body {
   font-size: 22px
+  line-height: 56px
   color: $grey
 }
 
 h1 {
   font-size: 50px;
   line-height: 60px;
-  color: $black;
+  color: $dark;
   -webkit-font-smoothing: antialiased;
 }
 
 h2 {
-  color: $black;
+  color: $dark;
+  line-height: 42px;
+  margin-bottom: 20px
 }
 
 h3 {
-  color: $light-grey
+  color: $grey
 }
 
 .bespoke-parent {
-  background: $grey;
+  background: $dark;
 }
 
 .bespoke-slide {
@@ -47,6 +50,10 @@ h3 {
     position:relative;
     width: 100%;
   }
+}
+
+.logo-slide {
+  padding: 0 15%;
 }
 
 .css-fuckup {

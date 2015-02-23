@@ -10,7 +10,9 @@ html
   body
 
     article
-
+      section(class='logo-slide')
+        img(src='/images/insided_logo_800px.png')
+        
       section
         h1 How we use modular Sass at inSided
         p <br>
@@ -18,8 +20,16 @@ html
         p @anneties
 
       section
+        h1 Summary
+        ul
+          li inSided current front-end setup
+          li Why we felt we needed to change this
+          li How we are setting up modular structure of working
+          li Some small code snippets
+
+      section
         h2 inSided 
-        h3 Create custom communities and <br> consultancy for corporate companies. 
+        h3 A Software as a Service platform to maintain communities for corporate enterprises. 
         img(src='/images/insided-clients.png')
 
       section
@@ -32,6 +42,10 @@ html
         img(src='/images/ns.png')
 
       section
+        h2 Running from the cloud
+        p image
+
+      section
         img(src='/images/default.png') 
 
       section(class='css-fuckup')
@@ -39,56 +53,65 @@ html
         img(src='/images/css-overwrite.png' class='css-overwrite')
 
       section
-        img(src='/images/jackie-chan.jpeg' class='jackie-chan')
+        //img(src='/images/jackie-chan.jpeg' class='jackie-chan')
+        img(src='http://media.giphy.com/media/5IKsrAbEcwrNS/giphy.gif')
+      
+      section
+        h1 We can do a little better
+        ul
+          li Only one css stylesheet per customer rendered by Sass
+          li Quicker implementation times
+          li Make it easier to reuse styles for new projects
+          li Create a pattern library for the designers to use
+          li Coding conventions
+          li Future proof (can we run 1000+ customers?)
 
       section
         h1 Time to refactor
         ul
-          li BEM methodology 
-          li Rewrite templates in modules
-          li Sass adjusted to modules
-          li Keep Sass in one central place
-          li Render automated style guides per customer
-          li Oh let's throw in an javascript refactor while we are at it
+          li BEM methodology
+          li Create a white-label framework
+          li Rewrite templates and Sass and split up in modules
+          li Create a central Sass codebase
+          li Be able to compile Sass for every client by running variables through the same central codebase
+
 
       section
         h2 Render Sass from one central spot
         ul
-          li All Sass files will be available in the core folder
-          li New functionalities will automatically be styled
-          li The Sass files will be split up in modules
-          li Feed variables to core files from your theme Sass file, get rendered css back into your theme
+          li Put Barebones Sass framework in it's own repository
+          li Get versioned Sass with bower in your project
+          li Feed variables to core files from your theme Sass file, get rendered css back into your project
+          li New functionalities will automatically be styled when updating the client with bower
           li Customize Sass modules by copying them into your theme
 
       section
         pre
-          code.language-javascript.
-            -Themes
+          code.language-css.
+            -Projects
              |-Client-name
-               |-Sass
-                 |settings.scss            
-                  output.scss
-            -Core
-             |-Assets
-               |-Sass
-                 |-apps
-                  -global
-                  -helpers
-                  -modules
-                  -patterns
+               |-Templates
+                -Assets
+                -Sass
+                 |-Barebones-sass (repo)
+                  -Sass-custom
+                   |settings.scss            
+                    output.scss
+                    styles.scss
+               GruntFile.js
+               bower.json
+
 
       section
-        h2 Compiling file
+        h2 styles.scss
         pre
           code.language-css.
             //imports THIS THEME's settings file.
             @import '_settings.scss';
-
-            //imports the CORE of Barebones. 
-            //importing this fill will give you 
-            //ALL Insided's SASS-functionality 
+ 
+            //ALL barebones SASS-functionality 
             //without outputting any CSS.
-            @import '@core-path/utilities/sass/_core-importer.scss';
+            @import '../barebones-sass/_core-importer.scss';
 
             //imports all SASS files that will actually output CSS, 
             //based on the CORE functionality imported above.
@@ -128,20 +151,57 @@ html
         h2 output.scss
         pre
           code.language-css.
-            @import '../vendors/barebone-sass/patterns/specific/spinner/spinner_output';
-            @import '../vendors/barebone-sass/patterns/generic/links/links_output';
-            @import '../vendors/barebone-sass/patterns/generic/forms/form-textual_output';
-            @import '../vendors/barebone-sass/patterns/generic/forms/form-labels_output';
-            @import '../vendors/barebone-sass/patterns/generic/forms/forms_output';
-            @import '../vendors/barebone-sass/patterns/specific/avatar/avatar_output';
-            @import '../vendors/barebone-sass/patterns/abstract/groups/flag_output';
+            @import '../b../patterns/specific/spinner/spinner_output';
+            @import '../b../patterns/generic/links/links_output';
+            @import '../b../patterns/generic/forms/form-textual_output';
+            @import '../b../patterns/generic/forms/form-labels_output';
+            @import '../b../patterns/generic/forms/forms_output';
+            @import '../b../patterns/specific/avatar/avatar_output';
+            @import '../b../patterns/abstract/groups/flag_output';
             
             @import 'additions';
 
-      section(data-bespoke-hash='named-route')
+      section
+        h2 Grunt build
         img(src='http://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif')
 
       section
+        code.language-css.
+          @mixin sizeButton(
+            $fontsize:  $button-base-fontsize,
+            $height:    $button-base-height,
+            $space:     $button-base-space,
+            $minwidth:  $button-base-minwidth){
+              font-size: $fontsize;
+              line-height: $font-base-lineheight;
+              min-width: $minwidth;
+              &.btn--icon {
+                  min-width: $height;
+              }
+          }
+      section
+        code.language-css.
+          @mixin baseButton(
+            $radius:        $button-base-radius,
+            $borderstyle:   $button-base-borderstyle,
+            $borderwidth:   $button-base-borderwidth,
+            $decoration:    $button-base-textdecoration,
+            $font:          $button-base-fontfamily,
+            $fontweight:    $button-base-fontweight,
+            $texttransform: $button-base-texttransform)
+
+      section
         img(src='http://s3.amazonaws.com/f.cl.ly/items/1M0k0u0I3U0e2g2t3d0T/Screen%20Recording%202015-02-08%20at%2008.24%20pm.gif')
+
+      section
+        h2 Discussion points
+        ul
+          li Every client wants something custom
+          li How we keep track of custom code and our default style
+          li 
+
+      section
+        ul
+          li styleguide
 
     script(src='build/build.js')
