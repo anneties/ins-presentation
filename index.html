@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>How we use modular Sass at inSided</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body>
+    <article>
+      <section class="logo-slide"><img src="/images/insided_logo_800px.png"></section>
+      <section>
+        <h1>How we use modular Sass at inSided</h1>
+        <p><br></p>
+        <p>Anne Ties van Vliet </p>
+        <p>@anneties</p>
+      </section>
+      <section>
+        <h1>Summary</h1>
+        <ul>
+          <li>inSided current front-end setup</li>
+          <li>Why we wanted to change our current way of working</li>
+          <li>How we are setting up a modular structure</li>
+          <li>Small preview</li>
+          <li>Feedback is welcome</li>
+        </ul>
+      </section>
+      <section>
+        <h2>inSided </h2>
+        <h3>Software as a Service to maintain communities for corporate enterprises. </h3><img src="/images/insided-clients.png">
+      </section>
+      <section><img src="/images/t-mobile.png"></section>
+      <section><img src="/images/ns.png"></section>
+      <section class="aws-slide">
+        <h2>Running from the cloud</h2>
+        <div><img src="images/aws-figure.jpg"></div>
+      </section>
+      <section><img src="/images/default.png"></section>
+      <section class="css-fuckup"><img src="/images/css-include.png" class="css-include"><img src="/images/css-overwrite.png" class="css-overwrite"></section>
+      <section>
+        <!--img(src='/images/jackie-chan.jpeg' class='jackie-chan')-->
+        <ul>
+          <li></li>
+          <li><img src="http://media.giphy.com/media/5IKsrAbEcwrNS/giphy.gif"></li>
+        </ul>
+      </section>
+      <section>
+        <h1>We can do a little better</h1>
+        <ul>
+          <li>Only one css stylesheet per customer rendered by Sass</li>
+          <li>Quicker implementation times</li>
+          <li>Make it easier to reuse styles for new projects</li>
+          <li>Create a pattern library for the designers to use</li>
+          <li>Coding conventions</li>
+          <li>Future proof (can we run 1000+ customers?)</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Time to refactor</h1>
+        <ul>
+          <li>BEM methodology</li>
+          <li>Rewrite templates and Sass and split up in modules</li>
+          <li>Create a white-label framework (non-opinionated)</li>
+          <li>Be able to compile Sass for every client by running variables through the same central codebase</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Render Sass from one central spot</h2>
+        <ul>
+          <li>Put Barebones Sass framework in it's own repository</li>
+          <li>Get versioned Barebones in your project with bower</li>
+          <li>Feed variables to framework with a settings Sass file, render css into your project</li>
+          <li>New core functionalities will automatically be styled when updating a project with bower</li>
+          <li>Customize modules/patterns by creating a custom sass file for them into your project</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-css">-Projects
+ |-Client-name
+   |-Templates
+    -Assets
+    -Sass
+     |-Barebones-sass (repo)
+      -Custom-sass
+      settings.scss            
+      output.scss
+      styles.scss
+   GruntFile.js
+   bower.json
+   </code></pre>
+      </section>
+      <section>
+        <h2>styles.scss</h2>
+        <pre><code class="language-css">//imports this project's settings file.
+@import '_settings.scss';
+
+//ALL barebones Sass-functionality 
+//without outputting any CSS.
+@import '../barebones-sass/_core-importer.scss';
+
+//imports all Sass files that will actually output CSS, 
+//based on the core functionality imported above.
+@import '_outputs.scss';
+</code></pre>
+      </section>
+      <section>
+        <h2>_settings.scss</h2>
+        <pre><code class="language-css">// Which apps does the client use?
+$apps : ('forum');
+
+// brand color(s)
+$color-brand                    : #006;
+$color-contrast                 : #fc3;
+
+$site-width                     : 980px;
+$maincol-width                  : 100%;
+$sidebar-width                  : 240px;
+$gutter                         : 10px;
+</code></pre>
+      </section>
+      <section>
+        <h2>_core-importer.scss</h2>
+        <pre><code class="language-css">@import 'global/grid';
+@import 'global/typography/fonts';
+@import 'global/typography/type_base';
+@import 'global/typography/headers';
+
+@import 'patterns/specific/spinner/spinner_base';
+@import 'patterns/specific/seperator/seperator_base';
+@import 'patterns/specific/tooltip/tooltip_base';
+@import 'patterns/patterns';
+</code></pre>
+      </section>
+      <section>
+        <h2>output.scss</h2>
+        <pre><code class="language-css">@import '../barebones-sass/patterns/spinner/spinner_output';
+@import '../barebones-sass/patterns/links/links_output';
+@import '../barebones-sass/patterns/forms/form-textual_output';
+@import '../barebones-sass/patterns/forms/form-labels_output';
+@import '../barebones-sass/patterns/forms/forms_output';
+@import '../barebones-sass/patterns/avatar/avatar_output';
+@import '../barebones-sass/patterns/groups/flag_output';
+
+@import 'additions';
+</code></pre>
+      </section>
+      <section>
+        <div><img src="/images/barebones-sass.png"></div>
+      </section>
+      <section>
+        <h2>styles.scss</h2>
+        <pre><code class="language-css">//imports this project's settings file.
+@import '_settings.scss';
+
+//ALL barebones Sass-functionality 
+//without outputting any CSS.
+@import '../barebones-sass/_core-importer.scss';
+
+//imports all Sass files that will actually output CSS, 
+//based on the core functionality imported above.
+@import '_outputs.scss';
+</code></pre>
+      </section>
+      <section>
+        <h2>Grunt build</h2><img src="http://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif">
+      </section>
+      <section>
+        <h2>Let me show you a sass compile</h2>
+      </section>
+      <section>
+        <h2>Didn't you talk about a pattern library?</h2>
+      </section>
+      <section>
+        <ul>
+          <li></li>
+          <li><img src="https://az681465.vo.msecnd.net/assets/2013/12/11/185bb4e792e5438c8e80962754b99680.gif"></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Discussion points</h2>
+        <ul>
+          <li>What would you do different?</li>
+          <li>How to keep track of custom code and our default</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Thank you for listening</h2>
+        <p>Special thanks to <br /> </p><span>Henk Jan Bouwmeester</span>
+        <p><br></p>
+        <p>Follow me on twitter <br> </p><span>@anneties</span>
+      </section>
+    </article>
+    <script src="build/build.js"></script>
+  </body>
+</html>
